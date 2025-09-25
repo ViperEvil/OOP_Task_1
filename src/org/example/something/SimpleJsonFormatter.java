@@ -1,4 +1,13 @@
 package org.example.something;
 
-public class SimpleJsonFormatter {
+public abstract class SimpleJsonFormatter implements JsonFormatter {
+    private final PrettyPringConfig config;
+
+    public SimpleJsonFormatter(PrettyPringConfig config) {
+        this.config = config;
+    }
+
+    public void appendIndent(StringBuilder sb, int level) {
+        sb.append(config.getIndentChar().repeat(level * config.getIndentSize()));
+    }
 }

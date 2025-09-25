@@ -1,8 +1,12 @@
-public class PrettyPrintJson implements JsonFormatter {
-    private final int indentSize;
+package org.example.something;
 
-    public PrettyPrintJson(int indentSize) {
-        this.indentSize = indentSize;
+public class PrettyPrintJson extends SimpleJsonFormatter {
+    public PrettyPrintJson(PrettyPringConfig config) {
+        super(config);
+    }
+
+    public PrettyPrintJson() {
+        super(new PrettyPringConfig());
     }
 
     /**
@@ -48,7 +52,7 @@ public class PrettyPrintJson implements JsonFormatter {
                         appendIndent(sb, indentLevel);
                         break;
                     case ':':
-                        sb.append(" ");
+                        sb.append(c).append(" ");
                         break;
                     default:
                         sb.append(c);
@@ -59,9 +63,5 @@ public class PrettyPrintJson implements JsonFormatter {
         }
 
         return sb.toString();
-    }
-
-    private void appendIndent(StringBuilder sb, int indentLevel) {
-        sb.append(" ".repeat(indentLevel * this.indentSize));
     }
 }
