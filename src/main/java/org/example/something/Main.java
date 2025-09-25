@@ -1,7 +1,7 @@
 package org.example.something;
 
 import org.example.something.JsonFormat.JsonFormatter;
-import org.example.something.JsonFormat.PrettyPrintJson;
+import org.example.something.Printer.PrettyPrintJson;
 import org.example.something.Printer.PrettyPrintColored;
 
 public class Main {

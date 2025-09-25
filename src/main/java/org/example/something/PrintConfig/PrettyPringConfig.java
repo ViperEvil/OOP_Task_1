@@ -1,4 +1,4 @@
-package org.example.something.Printer;
+package org.example.something.PrintConfig;
 
 public class PrettyPringConfig {
     private final int indentSize;

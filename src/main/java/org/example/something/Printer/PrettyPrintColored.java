@@ -2,6 +2,7 @@ package org.example.something.Printer;
 
 import org.example.something.ColorJson.AnsiColor;
 import org.example.something.JsonFormat.SimpleJsonFormatter;
+import org.example.something.PrintConfig.PrettyPringConfig;
 
 public class PrettyPrintColored extends SimpleJsonFormatter {
     public PrettyPrintColored(PrettyPringConfig config) {

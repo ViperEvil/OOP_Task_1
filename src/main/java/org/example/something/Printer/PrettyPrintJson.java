@@ -1,6 +1,7 @@
-package org.example.something.JsonFormat;
+package org.example.something.Printer;
 
-import org.example.something.Printer.PrettyPringConfig;
+import org.example.something.JsonFormat.SimpleJsonFormatter;
+import org.example.something.PrintConfig.PrettyPringConfig;
 
 public class PrettyPrintJson extends SimpleJsonFormatter {
     public PrettyPrintJson(PrettyPringConfig config) {
