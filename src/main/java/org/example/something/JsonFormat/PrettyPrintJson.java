@@ -1,14 +1,24 @@
-package org.example.something;
+package org.example.something.JsonFormat;
 
-public class PrettyPrintColored extends SimpleJsonFormatter {
-    public PrettyPrintColored(PrettyPringConfig config) {
+import org.example.something.Printer.PrettyPringConfig;
+
+public class PrettyPrintJson extends SimpleJsonFormatter {
+    public PrettyPrintJson(PrettyPringConfig config) {
         super(config);
     }
 
-    public PrettyPrintColored() {
+    public PrettyPrintJson() {
         super(new PrettyPringConfig());
     }
 
+    /**
+     * If { or [ - add new indent level
+     * If closing } or ] - then lower indent level
+     * If : - just add space to stringbuilder
+     * If , - just add /n
+     * @param json
+     * @return
+     */
     @Override
     public String formatter(String json) {
         StringBuilder sb = new StringBuilder();
@@ -19,7 +29,7 @@ public class PrettyPrintColored extends SimpleJsonFormatter {
             char c = json.charAt(i);
 
             if (c == '"') {
-                sb.append(AnsiColor.GREEN.code()).append(c).append(AnsiColor.RESET.code());
+                sb.append(c);
                 isQuote = !isQuote;
                 continue;
             }
@@ -28,8 +38,7 @@ public class PrettyPrintColored extends SimpleJsonFormatter {
                 switch (c) {
                     case '{':
                     case'[':
-                        sb.append(AnsiColor.GRAY.code()).append(c).append(AnsiColor.RESET.code())
-                                .append("\n");
+                        sb.append(c).append("\n");
                         indentLevel++;
                         appendIndent(sb, indentLevel);
                         break;
@@ -38,7 +47,7 @@ public class PrettyPrintColored extends SimpleJsonFormatter {
                         sb.append("\n");
                         indentLevel--;
                         appendIndent(sb, indentLevel);
-                        sb.append(AnsiColor.GRAY.code()).append(c).append(AnsiColor.RESET.code());
+                        sb.append(c);
                         break;
                     case ',':
                         sb.append(c).append("\n");
@@ -48,17 +57,10 @@ public class PrettyPrintColored extends SimpleJsonFormatter {
                         sb.append(c).append(" ");
                         break;
                     default:
-                        if (Character.isDigit(c)) {
-                            sb.append(AnsiColor.BLUE.code()).append(c).append(AnsiColor.RESET.code());
-                        } else if (Character.isLetter(c)) {
-                            sb.append(AnsiColor.BLUE.code()).append(c).append(AnsiColor.RESET.code());
-                        } else if (!Character.isWhitespace(c)) {
-                            sb.append(c);
-                        }
-                        break;
+                        sb.append(c);
                 }
             } else {
-                sb.append(AnsiColor.YELLOW.code()).append(c).append(AnsiColor.RESET.code());
+                sb.append(c);
             }
         }
 

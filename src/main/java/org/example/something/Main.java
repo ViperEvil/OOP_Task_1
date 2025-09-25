@@ -1,5 +1,9 @@
 package org.example.something;
 
+import org.example.something.JsonFormat.JsonFormatter;
+import org.example.something.JsonFormat.PrettyPrintJson;
+import org.example.something.Printer.PrettyPrintColored;
+
 public class Main {
     public static void main(String[] args) {
         String json = "{\"name\":\"Akemi\",\"skills\":[\"Java\",\"SQL\",],\"active\":true}";

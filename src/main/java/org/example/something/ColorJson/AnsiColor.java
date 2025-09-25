@@ -1,4 +1,4 @@
-package org.example.something;
+package org.example.something.ColorJson;
 
 public enum AnsiColor {
     RESET("\u001B[0m"),

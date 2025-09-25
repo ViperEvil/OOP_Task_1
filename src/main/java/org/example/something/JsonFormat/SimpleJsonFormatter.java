@@ -1,4 +1,6 @@
-package org.example.something;
+package org.example.something.JsonFormat;
+
+import org.example.something.Printer.PrettyPringConfig;
 
 public abstract class SimpleJsonFormatter implements JsonFormatter {
     private final PrettyPringConfig config;
