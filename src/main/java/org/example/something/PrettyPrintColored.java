@@ -1,22 +1,14 @@
 package org.example.something;
 
-public class PrettyPrintJson extends SimpleJsonFormatter {
-    public PrettyPrintJson(PrettyPringConfig config) {
+public class PrettyPrintColored extends SimpleJsonFormatter {
+    public PrettyPrintColored(PrettyPringConfig config) {
         super(config);
     }
 
-    public PrettyPrintJson() {
+    public PrettyPrintColored() {
         super(new PrettyPringConfig());
     }
 
-    /**
-     * If { or [ - add new indent level
-     * If closing } or ] - then lower indent level
-     * If : - just add space to stringbuilder
-     * If , - just add /n
-     * @param json
-     * @return
-     */
     @Override
     public String formatter(String json) {
         StringBuilder sb = new StringBuilder();
@@ -27,7 +19,7 @@ public class PrettyPrintJson extends SimpleJsonFormatter {
             char c = json.charAt(i);
 
             if (c == '"') {
-                sb.append(c);
+                sb.append(AnsiColor.GREEN.code()).append(c).append(AnsiColor.RESET.code());
                 isQuote = !isQuote;
                 continue;
             }
@@ -36,7 +28,8 @@ public class PrettyPrintJson extends SimpleJsonFormatter {
                 switch (c) {
                     case '{':
                     case'[':
-                        sb.append(c).append("\n");
+                        sb.append(AnsiColor.GRAY.code()).append(c).append(AnsiColor.RESET.code())
+                                .append("\n");
                         indentLevel++;
                         appendIndent(sb, indentLevel);
                         break;
@@ -45,20 +38,27 @@ public class PrettyPrintJson extends SimpleJsonFormatter {
                         sb.append("\n");
                         indentLevel--;
                         appendIndent(sb, indentLevel);
-                        sb.append(c);
+                        sb.append(AnsiColor.GRAY.code()).append(c).append(AnsiColor.RESET.code());
                         break;
                     case ',':
-                        sb.append("\n");
+                        sb.append(c).append("\n");
                         appendIndent(sb, indentLevel);
                         break;
                     case ':':
                         sb.append(c).append(" ");
                         break;
                     default:
-                        sb.append(c);
+                        if (Character.isDigit(c)) {
+                            sb.append(AnsiColor.BLUE.code()).append(c).append(AnsiColor.RESET.code());
+                        } else if (Character.isLetter(c)) {
+                            sb.append(AnsiColor.BLUE.code()).append(c).append(AnsiColor.RESET.code());
+                        } else if (!Character.isWhitespace(c)) {
+                            sb.append(c);
+                        }
+                        break;
                 }
             } else {
-                sb.append(c);
+                sb.append(AnsiColor.YELLOW.code()).append(c).append(AnsiColor.RESET.code());
             }
         }
 
